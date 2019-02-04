@@ -228,7 +228,8 @@ elesfn.json = function( obj ){
       } else { // parent is immutable via data()
         let parent = obj.data.parent;
 
-        if( ((parent && parent.length > 0)  || (data.parent && data.parent.length > 0)) && parent !== data.parent ){
+        if( (parent != null || data.parent != null) && parent !== data.parent ){
+        // if( ((parent && parent.length > 0)  || (data.parent && data.parent.length > 0)) && parent !== data.parent ){
           if( parent === undefined ){ // can't set undefined imperatively, so use null
             parent = [];
           }
@@ -735,7 +736,7 @@ elesfn.move = function( struct ){
 
   } else if( struct.parent !== undefined ){ // move node to new parent
     let parentId = struct.parent;
-    let parentExists = parentId === null || cy.hasElementWithId( parentId );
+    let parentExists = (parentId.length === 0) || cy.hasElementWithId( parentId );
 
     if( parentExists ){
       let jsons = this.jsons();

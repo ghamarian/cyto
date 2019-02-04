@@ -153,7 +153,7 @@ describe('Collection graph manipulation', function(){
     });
 
     it('should move to no parent', function(){
-      cy.$('#child').move({ parent: null });
+      cy.$('#child').move({ parent: [] });
 
       expect( cy.$('#child').parent().length ).to.equal(0);
     });
@@ -235,7 +235,7 @@ describe('Collection graph manipulation', function(){
 
       cy.$('#c').move({ parent: 'b' });
 
-      cy.$('#c').move({ parent: null });
+      cy.$('#c').move({ parent: [] });
 
       expect( cy.elements().length ).to.equal( N );
       expect( cy.edges().length ).to.equal( Ne );
