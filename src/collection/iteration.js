@@ -101,7 +101,7 @@ let elesfn = ({
     let group = _p.group;
 
     if( group === 'nodes' ){
-      let depth = _p.data.parent ? ele.parents().size() : 0;
+      let depth = _p.data.parent.length > 0 ? ele.parents().size() : 0;
 
       if( !ele.isParent() ){
         return util.MAX_INT - 1; // childless nodes always on top

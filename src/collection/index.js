@@ -228,9 +228,9 @@ elesfn.json = function( obj ){
       } else { // parent is immutable via data()
         let parent = obj.data.parent;
 
-        if( (parent != null || data.parent != null) && parent !== data.parent ){
+        if( ((parent && parent.length > 0)  || (data.parent && data.parent.length > 0)) && parent !== data.parent ){
           if( parent === undefined ){ // can't set undefined imperatively, so use null
-            parent = null;
+            parent = [];
           }
 
           ele = ele.move({ parent });
@@ -475,7 +475,7 @@ elesfn.restore = function( notifyRenderer ){
 
       if( parent.empty() ){
         // non-existant parent; just remove it
-        data.parent = undefined;
+        data.parent = [];
       } else {
         let selfAsParent = false;
         let ancestor = parent;
@@ -495,7 +495,7 @@ elesfn.restore = function( notifyRenderer ){
         if( !selfAsParent ){
           // connect with children
           parent[0]._private.children.push( node );
-          node._private.parent = parent[0];
+          node._private.parent = parent;
 
           // let the core know we have a compound graph
           cy_p.hasCompoundNodes = true;

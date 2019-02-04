@@ -237,6 +237,7 @@ let exprs = [
         let parentChildQuery = newQuery();
         let child = newQuery();
         let parent = selector[selector.length - 1];
+        // let parent = selector;
 
         parentChildQuery.checks.push({ type: Type.CHILD, parent, child });
 

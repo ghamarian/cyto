@@ -25,7 +25,7 @@ const defaults = {
     return false;
   },
   parent: function( /*context*/ ){
-    return null;
+    return [];
   },
   context: null
 };

@@ -199,13 +199,13 @@ fn = elesfn = ({
       if( setting ){
         for( let i = 0; i < this.length; i++ ){
           let ele = this[ i ];
-          let parent = hasCompoundNodes ? ele.parent() : null;
+          let parent = hasCompoundNodes ? ele.parent() : [];
           let hasParent = parent && parent.length > 0;
           let relativeToParent = hasParent;
 
-          if( hasParent ){
-            parent = parent[0];
-          }
+          // if( hasParent ){
+          //   parent = parent;
+          // }
 
           let origin = relativeToParent ? parent.position() : { x: 0, y: 0 };
 
@@ -221,13 +221,13 @@ fn = elesfn = ({
 
       } else { // getting
         let pos = ele.position();
-        let parent = hasCompoundNodes ? ele.parent() : null;
+        let parent = hasCompoundNodes ? ele.parent() : [];
         let hasParent = parent && parent.length > 0;
         let relativeToParent = hasParent;
 
-        if( hasParent ){
-          parent = parent[0];
-        }
+        // if( hasParent ){
+        //   parent = parent[0];
+        // }
 
         let origin = relativeToParent ? parent.position() : { x: 0, y: 0 };
 

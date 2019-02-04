@@ -64,7 +64,7 @@ let Element = function( cy, params, restore ){
     scratch: params.scratch || {}, // scratch objects
     edges: [], // array of connected edges
     children: [], // array of children
-    parent: null, // parent ref
+    parent: [], // parent ref
     traversalCache: {}, // cache of output of traversal functions
     backgrounding: false, // whether background images are loading
     bbCache: null, // cache of the current bounding box

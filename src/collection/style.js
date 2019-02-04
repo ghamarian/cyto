@@ -283,12 +283,12 @@ let elesfn = ({
 
       if( !hasCompoundNodes ){ return parentOpacity; }
 
-      let parents = !_p.data.parent ? null : ele.parents();
+      let parents =  (_p.data.parent && _p.data.parent.length == 0) ? [] : ele.parents();
 
       if( parents ){
         for( let i = 0; i < parents.length; i++ ){
-          let parent = parents[ i ];
-          let opacity = parent.pstyle( 'opacity' ).value;
+          let parent = [parents[ i ]];
+          let opacity = parent[0].pstyle( 'opacity' ).value;
 
           parentOpacity = opacity * parentOpacity;
         }
@@ -327,13 +327,17 @@ let elesfn = ({
 
 function checkCompound( ele, parentOk ){
   let _p = ele._private;
-  let parents = _p.data.parent ? ele.parents() : null;
+  let parents = (_p.data.parent && _p.data.parent.length > 0) ? ele.parents() : [];
 
-  if( parents ){ for( let i = 0; i < parents.length; i++ ){
-    let parent = parents[ i ];
+  if( parents && parents.length > 0 ){ 
+    for( let i = 0; i < parents.length; i++ ){
+      let parent = [parents[ i ]];
 
-    if( !parentOk( parent ) ){ return false; }
-  } }
+      if( !parentOk( parent[0] ) ){ 
+        return false; 
+      }
+  } 
+}
 
   return true;
 }
