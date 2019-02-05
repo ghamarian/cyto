@@ -510,7 +510,8 @@ elesfn.restore = function( notifyRenderer ){
             if (Array.isArray(node._private.parent)) {
               node._private.parent = parent.collection();
             } else {
-              node._private.parent.add(parent);
+              // node._private.parent.add(parent);
+              node._private.parent[node._private.parent.length++] = parent
             }
 
             // let the core know we have a compound graph
