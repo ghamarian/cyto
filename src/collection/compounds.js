@@ -35,7 +35,8 @@ let elesfn = ({
     while (eles.nonempty()) {
       for (let i = 0; i < eles.length; i++) {
         let ele = eles[i];
-        parents.push(ele);
+        // parents.push(ele);
+        parents = parents.concat(ele);
       }
 
       eles = eles.parent();

@@ -467,42 +467,58 @@ elesfn.restore = function( notifyRenderer ){
       data.parent = '' + data.parent;
     }
 
-    let parentId = data.parent;
+    let parentIdList = [];
+    if (Array.isArray(data.parent)) {
+      parentIdList = data.parent; 
+    }
+    else {
+      parentIdList = [data.parent];
+    }
 
-    let specifiedParent = parentId != null;
 
-    if( specifiedParent ){
-      let parent = cy.getElementById( parentId );
+    for (let parentId of parentIdList) {
 
-      if( parent.empty() ){
-        // non-existant parent; just remove it
-        data.parent = [];
-      } else {
-        let selfAsParent = false;
-        let ancestor = parent;
-        while( !ancestor.empty() ){
-          if( node.same( ancestor ) ){
-            // mark self as parent and remove from data
-            selfAsParent = true;
-            data.parent = undefined; // remove parent reference
+      // let parentId = data.parent;
 
-            // exit or we loop forever
-            break;
+      let specifiedParent = parentId != null;
+
+      if (specifiedParent) {
+        let parent = cy.getElementById(parentId);
+
+        if (parent.empty()) {
+          // non-existant parent; just remove it
+          data.parent = [];
+        } else {
+          let selfAsParent = false;
+          let ancestor = parent;
+          while (!ancestor.empty()) {
+            if (node.same(ancestor)) {
+              // mark self as parent and remove from data
+              selfAsParent = true;
+              data.parent = undefined; // remove parent reference
+
+              // exit or we loop forever
+              break;
+            }
+
+            ancestor = ancestor.parent();
           }
 
-          ancestor = ancestor.parent();
-        }
+          if (!selfAsParent) {
+            // connect with children
+            parent[0]._private.children.push(node);
+            if (Array.isArray(node._private.parent)) {
+              node._private.parent = parent.collection();
+            } else {
+              node._private.parent.add(parent);
+            }
 
-        if( !selfAsParent ){
-          // connect with children
-          parent[0]._private.children.push( node );
-          node._private.parent = parent;
-
-          // let the core know we have a compound graph
-          cy_p.hasCompoundNodes = true;
-        }
-      } // else
-    } // if specified parent
+            // let the core know we have a compound graph
+            cy_p.hasCompoundNodes = true;
+          }
+        } // else
+      } // if specified parent
+    }
   } // for each node
 
   if( elements.length > 0 ){

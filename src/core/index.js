@@ -374,7 +374,7 @@ util.extend( corefn, {
           return !idInJson[ ele.id() ];
         } ).forEach( function ( ele ){
           if( ele.isParent() ){
-            ele.children().move({ parent: null }); // so that children are not removed w/ parent
+            ele.children().move({ parent: [] }); // so that children are not removed w/ parent
 
             ele.remove(); // remove parent
           } else {
