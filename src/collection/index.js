@@ -511,7 +511,8 @@ elesfn.restore = function( notifyRenderer ){
               node._private.parent = parent.collection();
             } else {
               // node._private.parent.add(parent);
-              node._private.parent[node._private.parent.length++] = parent
+              // node._private.parent[node._private.parent.length++] = parent;
+              node._private.parent.merge(parent);
             }
 
             // let the core know we have a compound graph
